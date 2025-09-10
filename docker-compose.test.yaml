@@ -1,0 +1,10 @@
+services:
+  ui-test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    image: hr-rag-ui-test:local
+    container_name: hr-rag-ui-test
+    # Abort compose when tests finish and propagate exit code
+    restart: "no"
+

@@ -1,0 +1,24 @@
+services:
+  cypress:
+    image: cypress/included:13.15.0
+    container_name: cypress-e2e
+    working_dir: /e2e
+    volumes:
+      - ./:/e2e
+      - cypress-cache:/root/.cache
+      - cypress-videos:/e2e/cypress/videos
+      - cypress-screenshots:/e2e/cypress/screenshots
+    depends_on:
+      open-webui:
+        condition: service_healthy
+    environment:
+      # Ensure deterministic, CI-style output
+      - CI=1
+    # Override baseUrl to target the compose service name
+    command: [ "--config", "baseUrl=http://open-webui:8080" ]
+
+volumes:
+  cypress-cache: {}
+  cypress-videos: {}
+  cypress-screenshots: {}
+
